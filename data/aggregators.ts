@@ -2,7 +2,7 @@ import { Transaction } from "./transaction.ts";
 import addWeeks from "$date_fns/addWeeks/index.ts";
 import isBefore from "$date_fns/isBefore/index.ts";
 import isAfter from "$date_fns/isAfter/index.ts";
-import { Configuration } from "./settings.ts";
+import { Category, Configuration } from "./settings.ts";
 import { round } from "./utils.ts";
 
 export function detectCategories(
@@ -10,7 +10,10 @@ export function detectCategories(
   configuration: Configuration,
 ) {
   transactions.forEach((transaction) => {
-    transaction.category = findCategory(transaction, configuration);
+    const category = findCategory(transaction, configuration);
+    if(category){
+      transaction.category = category;
+    }
   });
 }
 
@@ -87,4 +90,24 @@ export function getEndtDate(transactions: Transaction[]) {
     }
   }
   return end;
+}
+
+export function groupByCategories(transactions: Transaction[]) {
+  const map = new Map<Category, Transaction[]>();
+  transactions.forEach((it) => {
+    if (map.has(it.category)) {
+      map.get(it.category)?.push(it);
+    } else {
+      map.set(it.category, [it]);
+    }
+  });
+  return map;
+}
+
+export function sumByCategories(transactions: Transaction[]){
+  const categories = groupByCategories(transactions);
+  return Array.from(categories.entries()).map(entry => ({
+    category : entry[0],
+    total : totalAmount(entry[1])
+  }));
 }

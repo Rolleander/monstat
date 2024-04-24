@@ -29,6 +29,8 @@
     "tailwindcss": "npm:tailwindcss@3.3.5",
     "tailwindcss/": "npm:/tailwindcss@3.3.5/",
     "tailwindcss/plugin": "npm:/tailwindcss@3.3.5/plugin.js",
+    "react-icons/ri":  "https://deno.land/x/react_icons_ri@1.0.9/mod.ts",
+    "react-icons/ri/":  "https://deno.land/x/react_icons_ri@1.0.9/ico/",
     "$date_fns/" : "https://deno.land/x/date_fns@v2.22.1/",
     "$fresh_charts/" : "https://deno.land/x/fresh_charts@0.3.1/",
     "$std/": "https://deno.land/std@0.216.0/"

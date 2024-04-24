@@ -6,5 +6,6 @@ export interface Transaction {
   target: string;
   description: string;
   date: Date;
-  category?: Category;
+  dateIso : string;
+  category: Category;
 }

@@ -1,6 +1,6 @@
 import { join } from "$std/path/mod.ts";
 import { readCSV } from "https://deno.land/x/csv/mod.ts";
-import { Configuration, CsvFormat } from "./settings.ts";
+import { Configuration, CsvFormat, DEFAULT_CATEGORY } from "./settings.ts";
 import { Transaction } from "./transaction.ts";
 import parseDate from "$date_fns/parse/index.js";
 import { detectCategories } from "./aggregators.ts";
@@ -71,17 +71,19 @@ async function parseData(
 }
 
 function parseRow(cells: string[], csvSetting: CsvFormat): Transaction {
+  const date = parseDate(
+    cells[csvSetting.columnIndexes.date],
+    csvSetting.dateFormat,
+    new Date(),
+    {},
+  );
   return {
     amount: parseAmount(cells[csvSetting.columnIndexes.amount]),
     iban: cells[csvSetting.columnIndexes.iban]?.toUpperCase() ?? "?",
-    category: undefined,
+    category: DEFAULT_CATEGORY,
     target: cells[csvSetting.columnIndexes.target]?.toLowerCase() ?? "?",
-    date: parseDate(
-      cells[csvSetting.columnIndexes.date],
-      csvSetting.dateFormat,
-      new Date(),
-      {},
-    ),
+    date: date,
+    dateIso: date.toISOString(),
     description: cells[csvSetting.columnIndexes.description]?.toLowerCase() ?? "?",
   };
 }

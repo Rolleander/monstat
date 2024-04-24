@@ -30,6 +30,13 @@ export const TYPE_EXPENSES = "EXPENSES";
 export const TYPE_INVEST = "INVEST";
 export const TYPE_SAVINGS = "SAVINGS";
 
+export const DEFAULT_CATEGORY : Category = {
+	name : "Sonstige",
+	type: TYPE_EXPENSES,
+	color: "#808080",
+	rule: {}
+};
+
 export interface CategoryRule{
 	targetContains? : string[];
 	descriptionContains? : string[];
