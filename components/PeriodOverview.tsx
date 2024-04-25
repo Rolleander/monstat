@@ -1,5 +1,10 @@
-import { groupByCategories, totalAmount } from "../data/aggregators.ts";
-import { COST, EXPENSE_CATEGORY, INCOME, filter } from "../data/filters.ts";
+import { useSignal } from "@preact/signals";
+import {
+  groupByCategories,
+  sortByAmount,
+  totalAmount,
+} from "../data/aggregators.ts";
+import { COST, EXPENSE_CATEGORY, filter, INCOME } from "../data/filters.ts";
 import {
   Configuration,
   TYPE_EXPENSES,
@@ -7,7 +12,8 @@ import {
   TYPE_SAVINGS,
 } from "../data/settings.ts";
 import { Transaction } from "../data/transaction.ts";
-import { toEuro } from "../data/utils.ts";
+import { toDateString, toEuro } from "../data/utils.ts";
+import Selection from "../islands/Selection.tsx";
 import BarChart from "./charts/BarChart.tsx";
 import PieChart from "./charts/PieChart.tsx";
 
@@ -18,6 +24,15 @@ interface PeriodProps {
 
 export default function (props: PeriodProps) {
   const dataByCategories = groupByCategories(props.data);
+  const categories = Array.from(dataByCategories.keys());
+  const categoryNames = categories.map((it) => it.name);
+  const categoryTotals = Array.from(dataByCategories.values()).map((it) =>
+    totalAmount(it)
+  );
+  const selectedCategory = useSignal(0);
+  const categoryTransactions = dataByCategories.get(
+    categories[selectedCategory.value],
+  )!;
   return (
     <>
       <div class="h-72 flex flex-row gap-6">
@@ -25,39 +40,50 @@ export default function (props: PeriodProps) {
           config={props.config}
           data={filter(props.data, COST, EXPENSE_CATEGORY)}
         />
-	    <PieChart
+        <PieChart
           config={props.config}
           data={filter(props.data, INCOME)}
         />
       </div>
 
+      <Selection
+        options={categoryNames}
+        totals={categoryTotals}
+        selected={selectedCategory}
+      />
 
-      <div>
-        Expenses per category:
-        <div class="flex flex-col gap-2">
-          {Array.from(dataByCategories.keys()).filter((it) =>
-            it.type === undefined || it.type === TYPE_EXPENSES
-          ).map((category) => (
-            <div>
-              {category.name}: {toEuro(
-                totalAmount(filter(dataByCategories.get(category)!, COST)) * -1,
-              )}
-            </div>
+      <table>
+        <thead>
+          <tr>
+            <td>Date</td>
+            <td>Amount</td>
+            <td>IBAN</td>
+            <td>Target</td>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tbody>
+          {categoryTransactions.map((it) => (
+            <tr>
+              <td class="px-1">
+                {toDateString(it.date)}
+              </td>
+              <td class="px-1 text-right text-nowrap">
+                {toEuro(it.amount)}
+              </td>
+              <td class="px-1">
+                {it.iban}
+              </td>
+              <td class="px-1">
+                {it.target}
+              </td>
+              <td class="px-1 break-all text-balance ">
+                {it.description}
+              </td>
+            </tr>
           ))}
-        </div>
-
-        Savings per category:
-        <div class="flex flex-col gap-2">
-          {Array.from(dataByCategories.keys()).filter((it) =>
-            it.type === TYPE_INVEST || it.type === TYPE_SAVINGS
-          ).map((category) => (
-            <div>
-              {category.name}:{" "}
-              {toEuro(totalAmount(dataByCategories.get(category)!) * -1)}
-            </div>
-          ))}
-        </div>
-      </div>
+        </tbody>
+      </table>
     </>
   );
 }

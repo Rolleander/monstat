@@ -68,7 +68,7 @@ export function totalAmount(transactions: Transaction[]) {
 
 export function getStartDate(transactions: Transaction[]) {
   if (transactions.length == 0) {
-    return addWeeks(new Date(), -4);
+    return new Date();
   }
   let start = new Date();
   for (const transaction of transactions) {
@@ -110,4 +110,8 @@ export function sumByCategories(transactions: Transaction[]){
     category : entry[0],
     total : totalAmount(entry[1])
   }));
+}
+
+export function sortByAmount(transaction: Transaction[]){
+  return transaction.sort((a,b)=> a.amount - b.amount);
 }

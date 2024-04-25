@@ -3,8 +3,6 @@ import { Transaction } from "../data/transaction.ts";
 import { getStartDate } from "../data/aggregators.ts";
 import { getEndtDate } from "../data/aggregators.ts";
 import format from "$date_fns/format/index.js";
-import addMonths from "$date_fns/addMonths/index.ts";
-import isBefore from "$date_fns/isBefore/index.ts";
 import {
   RiArrowLeftFill,
   RiArrowRightFill,
@@ -30,12 +28,20 @@ export function getMonths(data: Transaction[]) {
   const end = getEndtDate(data);
   const monthsDisplay = [];
   const months = [];
-  let date = start;
+  let m = start.getMonth();
+  let y = start.getFullYear();
+  let date: Date;
+  const endMonth = end.getFullYear() * 12 + end.getMonth();
   do {
+    date = new Date(y, m+1, 1);
     months.push(date);
     monthsDisplay.push(toMonth(date));
-    date = addMonths(date, 1);
-  } while (isBefore(date, end));
+    m += 1;
+    if (m > 12) {
+      m = 1;
+      y += 1;
+    }
+  } while (date.getFullYear() * 12 + date.getMonth() < endMonth);
   return {
     months,
     monthsDisplay,

@@ -10,6 +10,7 @@ import * as $index from "./routes/index.tsx";
 import * as $Chart from "./islands/Chart.tsx";
 import * as $Menu from "./islands/Menu.tsx";
 import * as $Pagination from "./islands/Pagination.tsx";
+import * as $Selection from "./islands/Selection.tsx";
 import * as $pages_Monthly from "./islands/pages/Monthly.tsx";
 import * as $pages_Yearly from "./islands/pages/Yearly.tsx";
 import { type Manifest } from "$fresh/server.ts";
@@ -26,6 +27,7 @@ const manifest = {
     "./islands/Chart.tsx": $Chart,
     "./islands/Menu.tsx": $Menu,
     "./islands/Pagination.tsx": $Pagination,
+    "./islands/Selection.tsx": $Selection,
     "./islands/pages/Monthly.tsx": $pages_Monthly,
     "./islands/pages/Yearly.tsx": $pages_Yearly,
   },
