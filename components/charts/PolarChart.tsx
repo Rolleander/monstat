@@ -15,6 +15,7 @@ export default function (props: PolarChartProps) {
     <Chart
       type="polarArea"
       options={{
+        animation : false,
         scales: {
           r: {
             pointLabels: {

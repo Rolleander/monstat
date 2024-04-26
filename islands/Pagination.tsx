@@ -11,7 +11,6 @@ import {
 } from "react-icons/ri";
 
 const MAX_OPTIONS = 9;
-const CENTER_INDEX = Math.floor(MAX_OPTIONS / 2);
 const MONTH_FORMAT = "MM.yyyy";
 
 interface PaginationProps {
@@ -62,15 +61,16 @@ export function getYears(data: Transaction[]) {
 export function Pagination(props: PaginationProps) {
   const current = props.selected.value;
   const showOptions = new Map<string, number>();
+  const centerIndex = Math.floor(Math.min(MAX_OPTIONS, props.options.length) / 2);
   let shift = 0;
-  if (current < CENTER_INDEX) {
-    shift = CENTER_INDEX - current;
-  } else if (current > (props.options.length - 1) - CENTER_INDEX) {
-    shift -= CENTER_INDEX - ((props.options.length - 1) - current);
+  if (current < centerIndex) {
+    shift = centerIndex - current;
+  } else if (current > (props.options.length - 1) - centerIndex) {
+    shift -= centerIndex - ((props.options.length - 1) - current);
   }
   let selectedOptionIndex = -1;
   for (let i = 0; i < MAX_OPTIONS; i++) {
-    let oi = current + i - CENTER_INDEX + shift;
+    let oi = current + i - centerIndex + shift;
     oi = Math.max(oi, 0);
     oi = Math.min(oi, props.options.length - 1);
     if (!showOptions.has(props.options[oi])) {
@@ -109,7 +109,7 @@ export function Pagination(props: PaginationProps) {
           class={` ${
             selectedOptionIndex == index ? "bg-blue-400" : "bg-gray-300"
           } 
-          hover:bg-gray-400 text-gray-800 font-bold py-1 px-4 `}
+          hover:bg-gray-400 text-gray-800 font-bold py-1 px-2 `}
           onClick={() => props.selected.value = entry[1]}
         >
           {entry[0]}

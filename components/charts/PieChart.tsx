@@ -5,6 +5,7 @@ import { toEuro } from "../../data/utils.ts";
 import Chart from "../../islands/Chart.tsx";
 
 interface PieChartProps {
+  animate : boolean;
   data: Transaction[];
   config: Configuration;
 }
@@ -15,6 +16,7 @@ export default function (props: PieChartProps) {
     <Chart
       type="pie"
       options={{
+        animation : props.animate ? {} : false,
       }}
       data={{
         datasets: [{

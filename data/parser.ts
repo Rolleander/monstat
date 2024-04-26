@@ -16,10 +16,10 @@ export async function readData(
     }
     const format = getCsvFormat(configuration, file.name);
     if (format) {
-      console.log("read "+file.name+" with format "+format.fileBegin);
+      console.log("read " + file.name + " with format " + format.fileBegin);
       promises.push(parseData(file.name, format));
-    }else{
-      console.error("no format found for file "+file.name);
+    } else {
+      console.error("no format found for file " + file.name);
     }
   }
   const transactions = (await Promise.all(promises)).flatMap((it) =>
@@ -47,26 +47,33 @@ async function parseData(
 ): Promise<Transaction[]> {
   const transactions: Transaction[] = [];
   const csvFile = await Deno.open(join("./csv", file));
-  const csvParserConfig =  {
+  const csvParserConfig = {
     columnSeparator: csvSetting.columnSeparator ?? ";",
     lineSeparator: csvSetting.lineSeparator ?? "\n",
     fromLine: csvSetting.fromLine ?? 1,
   };
-  console.log("start parsing "+file, csvParserConfig);
+  let rowCount = csvSetting.fromLine ?? 0;
+  console.log("start parsing " + file, csvParserConfig);
   for await (
     const row of readCSV(csvFile, csvParserConfig)
   ) {
-    const cells = await Array.fromAsync(row);   
-    const transaction = parseRow(cells, csvSetting);
-    if (transaction) {
-      transactions.push(transaction);
+    const cells = await Array.fromAsync(row);
+    if (cells.length > 0) {
+      const transaction = parseRow(cells, csvSetting);
+      if (transaction) {
+        transactions.push(transaction);
+      } else {
+        console.error("could not parse row ", cells);
+      }
+    } else {
+      console.error("could not parse row #" + rowCount+" of "+file);
     }
-    else{
-      console.error("could not parse row ", cells);
-    }
+    rowCount++;
   }
   csvFile.close();
-  console.log(`finished reading ${file}, recorded ${transactions.length} transactions`);
+  console.log(
+    `finished reading ${file}, recorded ${transactions.length} transactions`,
+  );
   return transactions;
 }
 
@@ -81,13 +88,16 @@ function parseRow(cells: string[], csvSetting: CsvFormat): Transaction {
     amount: parseAmount(cells[csvSetting.columnIndexes.amount]),
     iban: cells[csvSetting.columnIndexes.iban]?.toUpperCase() ?? "?",
     category: DEFAULT_CATEGORY,
-    target: cells[csvSetting.columnIndexes.target]?.toLowerCase() ?? "?",
+    target: cells[csvSetting.columnIndexes.target] ?? "?",
     date: date,
     dateIso: date.toISOString(),
-    description: cells[csvSetting.columnIndexes.description]?.toLowerCase() ?? "?",
+    description: cells[csvSetting.columnIndexes.description] ?? "?",
   };
 }
 
-function parseAmount(value : string){
-  return parseFloat(value.replace(/\./, '').replace(/,/, '.'));
+function parseAmount(value: string) {
+  if (!value) {
+    return 0;
+  }
+  return parseFloat(value.replace(/\./, "").replace(/,/, "."));
 }

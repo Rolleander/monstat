@@ -11,7 +11,7 @@ export function detectCategories(
 ) {
   transactions.forEach((transaction) => {
     const category = findCategory(transaction, configuration);
-    if(category){
+    if (category) {
       transaction.category = category;
     }
   });
@@ -83,7 +83,7 @@ export function getEndtDate(transactions: Transaction[]) {
   if (transactions.length == 0) {
     return new Date();
   }
-  let end = new Date();
+  let end = new Date(1000,1,1);
   for (const transaction of transactions) {
     if (isAfter(transaction.date, end)) {
       end = transaction.date;
@@ -101,17 +101,22 @@ export function groupByCategories(transactions: Transaction[]) {
       map.set(it.category, [it]);
     }
   });
-  return map;
+  const sums = new Map(
+    Array.from(map.entries()).map((entry) => [entry[0], totalAmount(entry[1])]),
+  );
+  return new Map(
+    Array.from(map.entries()).sort((a, b) => sums.get(a[0])! - sums.get(b[0])!),
+  );
 }
 
-export function sumByCategories(transactions: Transaction[]){
+export function sumByCategories(transactions: Transaction[]) {
   const categories = groupByCategories(transactions);
-  return Array.from(categories.entries()).map(entry => ({
-    category : entry[0],
-    total : totalAmount(entry[1])
+  return Array.from(categories.entries()).map((entry) => ({
+    category: entry[0],
+    total: totalAmount(entry[1]),
   }));
 }
 
-export function sortByAmount(transaction: Transaction[]){
-  return transaction.sort((a,b)=> a.amount - b.amount);
+export function sortByAmount(transactions: Transaction[]) {
+  return transactions.sort((a, b) => a.amount - b.amount);
 }
