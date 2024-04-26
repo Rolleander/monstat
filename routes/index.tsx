@@ -37,12 +37,15 @@ export default async function Home() {
   const savingsPercentage = totalSavings / totalIncome;
   const initialBalance = config.initialBalance ?? 0;
   return (
-    <div class="max-w-screen-lg mx-auto flex flex-col gap-4 mt-4 items-center justify-center">
-      <div class="w-full flex flex-row gap-2  text-md border-b-2 border-blue-500 py-2">
-        <div class="text-3xl flex-grow">
-          MONeySTAT
+    <div class="max-w-screen-xl mx-auto flex flex-col gap-6 mt-4 items-end justify-center mb-6">
+      <div class="w-5/6 flex flex-row gap-2 items-center  text-md border-b-2 border-blue-300 py-2 drop-shadow-md">
+        <div class="text-3xl flex-grow text-gray-500 tracking-widest">
+          <span class="font-bold text-stone-900">MON</span>
+          ey
+          <span class="font-bold text-stone-900">$TAT</span>
+          s
         </div>
-        <div class="bg-blue-300 p-2 rounded-md flex flex-col justify-center items-center">
+        <div class="bg-blue-300/50 p-2 rounded-md flex flex-col justify-center items-center">
           <div class="flex items-center gap-1 text-sm">
             <RiScalesFill /> Current balance
           </div>
@@ -50,7 +53,7 @@ export default async function Home() {
             {toEuro(totalAmount(data) + initialBalance)}
           </div>
         </div>
-        <div class="bg-green-300 p-2 rounded-md flex flex-col justify-center items-center">
+        <div class="bg-green-300/50 p-2 rounded-md flex flex-col justify-center items-center">
           <div class="flex items-center gap-1 text-sm">
             <RiCoinsFill /> Total income
           </div>
@@ -58,7 +61,7 @@ export default async function Home() {
             {toEuro(totalIncome)}
           </div>
         </div>
-        <div class="bg-red-300 p-2 rounded-md flex flex-col justify-center items-center">
+        <div class="bg-red-300/50 p-2 rounded-md flex flex-col justify-center items-center">
           <div class="flex items-center gap-1 text-sm">
             <RiHandCoinLine /> Total expenses
           </div>
@@ -66,7 +69,7 @@ export default async function Home() {
             {toEuro(totalAmount(filter(data, COST, EXPENSE_CATEGORY)) * -1)}
           </div>
         </div>
-        <div class="bg-fuchsia-300 p-2 rounded-md flex flex-col justify-center items-center">
+        <div class="bg-fuchsia-300/50 p-2 rounded-md flex flex-col justify-center items-center">
           <div class="flex items-center gap-1 text-sm">
             <RiBankFill /> Total savings
           </div>

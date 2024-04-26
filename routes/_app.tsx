@@ -8,7 +8,7 @@ export default function App({ Component }: PageProps) {
         <title>monstat</title>
         <link rel="stylesheet" href="/styles.css" />
       </head>
-      <body style={{paddingLeft: "calc(100vw - 100%)"}}>
+      <body class="bg-neutral-100" style={{paddingLeft: "calc(100vw - 100%)"}}>
         <Component />
       </body>
     </html>

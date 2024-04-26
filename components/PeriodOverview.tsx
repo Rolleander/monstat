@@ -56,11 +56,11 @@ export default function (props: PeriodProps) {
   const leftOver = totalIncome - totalExpenses - totalSavings;
   return (
     <>
-      <div class="flex flex-col gap-2 bg-stone-200 p-2">
-        <div class="flex  gap-2 p-2">
+      <div class="flex flex-col gap-2 bg-neutral-200 p-2 rounded-xl">
+        <div class="flex  gap-2 p-2 ">
           <div class="flex flex-col gap-2 items-center flex-grow ">
             <div class="text-lg font-bold">Expenses</div>
-            <div class="flex-grow w-full">
+            <div class="flex-grow w-full max-h-72">
               <BarChart
                 animate={props.animate.value}
                 config={props.config}
@@ -70,7 +70,7 @@ export default function (props: PeriodProps) {
           </div>
           <div class="flex flex-col gap-2 items-center">
             <div class="text-lg font-bold">Income</div>
-            <div class="flex-grow w-full">
+            <div class="flex-grow w-full max-h-72">
               <PieChart
                 animate={props.animate.value}
                 config={props.config}
@@ -80,7 +80,7 @@ export default function (props: PeriodProps) {
           </div>
         </div>
         <div class="px-2 flex gap-2 justify-center items-center">
-          <div class="bg-green-300 py-1 px-2 rounded-sm flex flex-col justify-center items-center">
+          <div class="bg-green-300/50 py-1 px-2 rounded-sm flex flex-col justify-center items-center">
             <div class="flex items-center gap-1 text-sm">
               <RiCoinsFill /> Income
             </div>
@@ -91,7 +91,7 @@ export default function (props: PeriodProps) {
           <div>
             <RiSubtractFill />
           </div>
-          <div class="bg-red-300  py-1 px-2 rounded-sm flex flex-col justify-center items-center">
+          <div class="bg-red-300/50  py-1 px-2 rounded-sm flex flex-col justify-center items-center">
             <div class="flex items-center gap-1 text-sm">
               <RiHandCoinLine /> Expenses
             </div>
@@ -102,7 +102,7 @@ export default function (props: PeriodProps) {
           <div>
             <RiSubtractFill />
           </div>
-          <div class="bg-fuchsia-300  py-1 px-2 rounded-sm flex flex-col justify-center items-center">
+          <div class="bg-fuchsia-300/50  py-1 px-2 rounded-sm flex flex-col justify-center items-center">
             <div class="flex items-center gap-1 text-sm">
               <RiBankFill /> Savings
             </div>
@@ -117,7 +117,7 @@ export default function (props: PeriodProps) {
             <RiSubtractFill />
             <RiSubtractFill class="-mt-5" />
           </div>
-          <div class="bg-blue-300  py-1 px-2 rounded-sm flex flex-col justify-center items-center">
+          <div class="bg-blue-300/50  py-1 px-2 rounded-sm flex flex-col justify-center items-center">
             <div class="flex items-center gap-1 text-sm">
               <RiScalesFill /> Net Balance
             </div>
@@ -127,6 +127,7 @@ export default function (props: PeriodProps) {
           </div>
         </div>
       </div>
+
       <Selection
         options={categoryOptions}
         selected={props.category}
@@ -135,11 +136,11 @@ export default function (props: PeriodProps) {
       <table class="table-fixed rounded-md border-2 ">
         <thead>
           <tr class="bg-slate-300 border-b-2 border-gray-500 font-bold">
-            <td class="py-2 px-2">Date</td>
-            <td class="py-2 px-2">Amount</td>
-            <td class="py-2 px-2">IBAN</td>
-            <td class="py-2 px-2">Target</td>
-            <td class="py-2 px-2">Description</td>
+            <td class="py-1 px-2">Date</td>
+            <td class="py-1 px-2">Amount</td>
+            <td class="py-1 px-2">IBAN</td>
+            <td class="py-1 px-2">Target</td>
+            <td class="py-1 px-2">Description</td>
           </tr>
         </thead>
         <tbody>
@@ -153,16 +154,16 @@ export default function (props: PeriodProps) {
               <td
                 class={`${
                   it.amount >= 0 ? "text-green-600" : "text-red-800"
-                }  w-[8rem] px-2 text-right text-nowrap font-bold`}
+                }  w-[10rem] px-2 text-right text-nowrap font-bold`}
               >
                 {toEuro(it.amount)}
               </td>
-              <td class="w-[12rem] px-2">
+              <td class="w-[10rem] px-2 text-sm">
                 {it.iban}
               </td>
               <td class="px-2 text-sm">
                 <p
-                  class="w-[12rem] overflow-hidden"
+                  class="w-[10rem] overflow-hidden"
                   style={{
                     display: "-webkit-box",
                     webkitLineClamp: 3,
@@ -174,7 +175,7 @@ export default function (props: PeriodProps) {
               </td>
               <td class="px-2 text-sm">
                 <p
-                  class="w-[15rem] overflow-hidden"
+                  class="w-[14rem] overflow-hidden"
                   style={{
                     display: "-webkit-box",
                     webkitLineClamp: 3,

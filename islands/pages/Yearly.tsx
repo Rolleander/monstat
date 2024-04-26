@@ -31,7 +31,7 @@ export default function (props: YearlyProps) {
   });
   const yearData =   filter(props.data, inYear(years[selected.value]));
   return (
-    <div class="flex flex-col gap-8">
+    <div class="flex flex-col gap-4">
       <Pagination options={years.map(it=>it.toString())} selected={selected}>
       </Pagination>
       <PeriodOverview config={props.config} data={yearData} animate={animate} category={category}/>

@@ -87,8 +87,8 @@ export function Pagination(props: PaginationProps) {
       <button
         disabled={!paginatingLeft}
         class={` ${
-          paginatingLeft ? "bg-gray-300 hover:bg-gray-400" : "invisible"
-        }   text-gray-800 font-bold py-1 px-2 rounded-l`}
+          paginatingLeft ? "bg-gray-300 hover:bg-gray-400 hover:scale-105" : "invisible"
+        }   text-gray-800 font-bold py-1 px-2 rounded-l border-r border-gray-400`}
         onClick={() => props.selected.value = 0}
       >
         <RiSkipBackFill />
@@ -97,8 +97,8 @@ export function Pagination(props: PaginationProps) {
       <button
         disabled={!paginatingLeft}
         class={` ${
-          paginatingLeft ? "bg-gray-300 hover:bg-gray-400" : "invisible"
-        }   text-gray-800 font-bold py-1 px-2`}
+          paginatingLeft ? "bg-gray-300 hover:bg-gray-400 hover:scale-105" : "invisible"
+        }   text-gray-800 font-bold py-1 px-2 border-r border-gray-400`}
         onClick={() => props.selected.value -= 1}
       >
         <RiArrowLeftFill />
@@ -109,7 +109,7 @@ export function Pagination(props: PaginationProps) {
           class={` ${
             selectedOptionIndex == index ? "bg-blue-400" : "bg-gray-300"
           } 
-          hover:bg-gray-400 text-gray-800 font-bold py-1 px-2 `}
+          hover:bg-gray-400 hover:scale-105 text-gray-800 font-bold py-1 px-3 border-r border-gray-400`}
           onClick={() => props.selected.value = entry[1]}
         >
           {entry[0]}
@@ -118,8 +118,8 @@ export function Pagination(props: PaginationProps) {
 
       <button
         class={` ${
-          paginatingRight ? "bg-gray-300 hover:bg-gray-400" : "invisible"
-        }   text-gray-800 font-bold py-1 px-2 `}
+          paginatingRight ? "bg-gray-300 hover:bg-gray-400 hover:scale-105" : "invisible"
+        }   text-gray-800 font-bold py-1 px-2 border-r border-gray-400`}
         disabled={!paginatingRight}
         onClick={() => props.selected.value += 1}
       >
@@ -127,7 +127,7 @@ export function Pagination(props: PaginationProps) {
       </button>
       <button
         class={` ${
-          paginatingRight ? "bg-gray-300 hover:bg-gray-400" : "invisible"
+          paginatingRight ? "bg-gray-300 hover:bg-gray-400 hover:scale-105" : "invisible"
         }   text-gray-800 font-bold py-1 px-2 rounded-r`}
         disabled={!paginatingRight}
         onClick={() => props.selected.value = props.options.length - 1}

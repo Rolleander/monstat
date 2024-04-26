@@ -29,7 +29,7 @@ export default function (props: MonthlyProps) {
   const selectedMonth = months.months[selected.value];
   const monthData = filter(props.data, inMonth(selectedMonth));
   return (
-    <div class="flex flex-col gap-8">
+    <div class="flex flex-col gap-4">
       <Pagination options={months.monthsDisplay} selected={selected}>
       </Pagination>
       <PeriodOverview
