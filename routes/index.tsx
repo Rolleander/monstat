@@ -18,8 +18,18 @@ import {
   RiHandCoinLine,
   RiScalesFill,
 } from "react-icons/ri";
+import {ChartJs} from "$fresh_charts/deps.ts";
+import { IS_BROWSER } from "$fresh/runtime.ts";
 
 export default async function Home() {
+  if(IS_BROWSER){
+    console.log("import pluigi");
+    import("npm:chartjs-plugin-zoom").then(plugin =>  {
+      console.log("imported plugin", plugin);
+      ChartJs.Chart.register( plugin.default);
+    } );     
+
+  }
   const config = await readConfiguration();
   const data = await readData(config);
   const startDate = getStartDate(data);
@@ -50,7 +60,7 @@ export default async function Home() {
             <RiScalesFill /> Current balance
           </div>
           <div class="font-bold">
-            {toEuro(totalAmount(data) + initialBalance)}
+            {toEuro(totalAmount(data) + initialBalance, 0)}
           </div>
         </div>
         <div class="bg-green-300/50 p-2 rounded-md flex flex-col justify-center items-center">
@@ -58,7 +68,7 @@ export default async function Home() {
             <RiCoinsFill /> Total income
           </div>
           <div class="font-bold">
-            {toEuro(totalIncome)}
+            {toEuro(totalIncome, 0)}
           </div>
         </div>
         <div class="bg-red-300/50 p-2 rounded-md flex flex-col justify-center items-center">
@@ -66,7 +76,7 @@ export default async function Home() {
             <RiHandCoinLine /> Total expenses
           </div>
           <div class="font-bold">
-            {toEuro(totalAmount(filter(data, COST, EXPENSE_CATEGORY)) * -1)}
+            {toEuro(totalAmount(filter(data, COST, EXPENSE_CATEGORY)) * -1, 0)}
           </div>
         </div>
         <div class="bg-fuchsia-300/50 p-2 rounded-md flex flex-col justify-center items-center">
@@ -74,7 +84,7 @@ export default async function Home() {
             <RiBankFill /> Total savings
           </div>
           <div class="font-bold">
-            {toEuro(totalSavings)}
+            {toEuro(totalSavings, 0)}
             <span class="text-sm ml-2">
               ({toPercentage(savingsPercentage)})
             </span>

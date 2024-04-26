@@ -1,5 +1,4 @@
 import { Transaction } from "./transaction.ts";
-import addWeeks from "$date_fns/addWeeks/index.ts";
 import isBefore from "$date_fns/isBefore/index.ts";
 import isAfter from "$date_fns/isAfter/index.ts";
 import { Category, Configuration } from "./settings.ts";

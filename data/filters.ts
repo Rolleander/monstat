@@ -32,7 +32,7 @@ export function inYear(year : number) : TransactionFilter{
 }
 
 export function hasCategory(category : Category) : TransactionFilter{
-	return (transaction:  Transaction) => transaction.category == category;
+	return (transaction:  Transaction) => transaction.category.name == category.name;
 }
 
 export function hasIban(...ibans : string[])  : TransactionFilter{

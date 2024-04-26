@@ -25,6 +25,7 @@ import Selection from "../islands/Selection.tsx";
 import BarChart from "./charts/BarChart.tsx";
 import PieChart from "./charts/PieChart.tsx";
 
+
 interface PeriodProps {
   animate: Signal<boolean>;
   category: Signal<Category | undefined>;
@@ -79,6 +80,7 @@ export default function (props: PeriodProps) {
             </div>
           </div>
         </div>
+
         <div class="px-2 flex gap-2 justify-center items-center">
           <div class="bg-green-300/50 py-1 px-2 rounded-sm flex flex-col justify-center items-center">
             <div class="flex items-center gap-1 text-sm">
