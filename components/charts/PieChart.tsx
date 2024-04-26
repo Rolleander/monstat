@@ -17,6 +17,12 @@ export default function (props: PieChartProps) {
       type="pie"
       options={{
         animation : props.animate ? {} : false,
+        plugins: {
+          legend: {
+            align: "start",
+            position: "bottom"
+          },
+        },
       }}
       data={{
         datasets: [{

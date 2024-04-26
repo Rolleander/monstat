@@ -8,10 +8,11 @@ export function round(number: number) {
 }
 
 export function toEuro(number: number) {
-  return round(number).toString().replace(/\./, ",").replace(
-    /\B(?=(\d{3})+(?!\d))/g,
-    ".",
-  ) + " €";
+  return round(number).toLocaleString('de-DE', {
+    style: "currency",
+    currency: "EUR",
+    minimumFractionDigits: 2
+  })
 }
 
 export function toPercentage(number : number){
