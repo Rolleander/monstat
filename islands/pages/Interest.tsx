@@ -1,33 +1,28 @@
+import addMonths from "$date_fns/addMonths/index.ts";
+import addYears from "$date_fns/addYears/index.ts";
+import format from "$date_fns/format/index.js";
+import { Signal, useSignal } from "@preact/signals";
 import {
-  getEndtDate,
-  getMonths,
-  getStartDate,
-  totalAmount,
+	getEndtDate,
+	getStartDate,
+	totalAmount
 } from "../../data/aggregators.ts";
 import {
-  COST,
-  filter,
-  hasCategory,
-  INCOME,
-  inMonth,
-  inYear,
+	filter,
+	hasCategory,
+	inMonth,
+	inYear
 } from "../../data/filters.ts";
 import {
-  Category,
-  Configuration,
-  DEFAULT_CATEGORY,
-  TYPE_INVEST,
-  TYPE_SAVINGS,
+	Category,
+	Configuration,
+	TYPE_INVEST,
+	TYPE_SAVINGS
 } from "../../data/settings.ts";
 import { Transaction } from "../../data/transaction.ts";
-import { fixDates, toEuro } from "../../data/utils.ts";
+import { fixDates, round, toEuro } from "../../data/utils.ts";
 import Chart from "../../islands/Chart.tsx";
-import format from "$date_fns/format/index.js";
-import addYears from "$date_fns/addYears/index.ts";
-import addMonths from "$date_fns/addMonths/index.ts";
-import { Signal, useSignal } from "@preact/signals";
 import Selection from "../Selection.tsx";
-import { round } from "../../data/utils.ts";
 
 interface Props {
   data: Transaction[];

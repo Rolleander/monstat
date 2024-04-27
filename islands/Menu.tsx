@@ -7,6 +7,7 @@ import CostsHistory from "./pages/CostsHistory.tsx";
 import IncomeHistory from "./pages/IncomeHistory.tsx";
 import NetProgress from "./pages/NetProgress.tsx";
 import Interest from "./pages/Interest.tsx";
+import Matrix from "./pages/Matrix.tsx";
 import { ChartJs } from "$fresh_charts/deps.ts";
 import { IS_BROWSER } from "$fresh/runtime.ts";
 
@@ -22,7 +23,7 @@ const MENU = [
   "Income history",
   "Savings progress",
   "Investing interest",
-  "TODO",
+  "Matrix",
   "TODO",
   "TODO",
   "TODO",
@@ -58,7 +59,7 @@ export default function (props: MenuProps) {
           </button>
         ))}
       </div>
-      <div class="flex-grow p-2">
+      <div class="flex-grow p-2 ">
         {page.value === 0 && (
           <Monthly
             config={props.config}
@@ -78,6 +79,7 @@ export default function (props: MenuProps) {
         {page.value === 5 && (
           <Interest config={props.config} data={props.data} />
         )}
+        {page.value === 6 && <Matrix config={props.config} data={props.data} />}
       </div>
     </div>
   );
