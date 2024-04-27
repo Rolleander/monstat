@@ -38,6 +38,7 @@ export default function (props: PeriodProps) {
   const categories = Array.from(dataByCategories.keys());
   const categoryOptions = categories.map((it) => ({
     category: it,
+    count : dataByCategories.get(it)?.length,
     total: totalAmount(dataByCategories.get(it)!),
   }));
   let categoryTransactions: Transaction[] = [];

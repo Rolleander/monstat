@@ -3,8 +3,9 @@ import { Transaction } from "../data/transaction.ts";
 import { Configuration } from "../data/settings.ts";
 import Monthly from "./pages/Monthly.tsx";
 import Yearly from "./pages/Yearly.tsx";
-import Expenses from "./pages/Expenses.tsx";
-
+import CostsHistory from "./pages/CostsHistory.tsx";
+import IncomeHistory from "./pages/IncomeHistory.tsx";
+import NetProgress from "./pages/NetProgress.tsx";
 import { ChartJs } from "$fresh_charts/deps.ts";
 import { IS_BROWSER } from "$fresh/runtime.ts";
 
@@ -17,7 +18,8 @@ const MENU = [
   "Month overview",
   "Year overview",
   "Costs history",
-  "TODO",
+  "Income history",
+  "Savings progress",
   "TODO",
   "TODO",
   "TODO",
@@ -64,7 +66,13 @@ export default function (props: MenuProps) {
         )}
         {page.value === 1 && <Yearly config={props.config} data={props.data} />}
         {page.value === 2 && (
-          <Expenses config={props.config} data={props.data} />
+          <CostsHistory config={props.config} data={props.data} />
+        )}
+        {page.value === 3 && (
+          <IncomeHistory config={props.config} data={props.data} />
+        )}
+        {page.value === 4 && (
+          <NetProgress config={props.config} data={props.data} />
         )}
       </div>
     </div>

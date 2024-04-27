@@ -3,6 +3,7 @@ import isBefore from "$date_fns/isBefore/index.ts";
 import isAfter from "$date_fns/isAfter/index.ts";
 import { Category, Configuration } from "./settings.ts";
 import { round } from "./utils.ts";
+import addMonths from "$date_fns/addMonths/index.ts";
 
 export function detectCategories(
   transactions: Transaction[],
@@ -89,6 +90,19 @@ export function getEndtDate(transactions: Transaction[]) {
     }
   }
   return end;
+}
+
+export function getMonths(transactions: Transaction[]){
+  const start = getStartDate(transactions);
+  const end = getEndtDate(transactions);
+  const months = [start];
+  const endMonth = end.getFullYear() * 12 + end.getMonth();
+  let date = start;
+  while (date.getFullYear() * 12 + date.getMonth() < endMonth) {
+    date = addMonths(date, 1);
+    months.push(date);
+  }
+  return months;
 }
 
 export function groupByCategories(transactions: Transaction[]) {

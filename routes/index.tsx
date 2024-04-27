@@ -18,18 +18,8 @@ import {
   RiHandCoinLine,
   RiScalesFill,
 } from "react-icons/ri";
-import {ChartJs} from "$fresh_charts/deps.ts";
-import { IS_BROWSER } from "$fresh/runtime.ts";
 
 export default async function Home() {
-  if(IS_BROWSER){
-    console.log("import pluigi");
-    import("npm:chartjs-plugin-zoom").then(plugin =>  {
-      console.log("imported plugin", plugin);
-      ChartJs.Chart.register( plugin.default);
-    } );     
-
-  }
   const config = await readConfiguration();
   const data = await readData(config);
   const startDate = getStartDate(data);

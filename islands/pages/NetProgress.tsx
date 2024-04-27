@@ -1,9 +1,18 @@
+import addMonths from "$date_fns/addMonths/index.ts";
 import {
   getEndtDate,
+  getMonths,
   getStartDate,
-  sumByCategories,
   totalAmount,
 } from "../../data/aggregators.ts";
+import {
+  COST,
+  EXPENSE_CATEGORY,
+  filter,
+  hasCategory,
+  INCOME,
+  inMonth,
+} from "../../data/filters.ts";
 import {
   Category,
   Configuration,
@@ -13,60 +22,46 @@ import {
 } from "../../data/settings.ts";
 import { Transaction } from "../../data/transaction.ts";
 import { fixDates, toEuro } from "../../data/utils.ts";
-import addMonths from "$date_fns/addMonths/index.ts";
-import isBefore from "$date_fns/isBefore/index.ts";
-import Chart from "../../islands/Chart.tsx";
-import {
-  COST,
-  filter,
-  hasCategory,
-  INCOME,
-  inMonth,
-} from "../../data/filters.ts";
-import { toDateString } from "../../data/utils.ts";
+import Chart from "../Chart.tsx";
 import format from "$date_fns/format/index.js";
 
-interface StackedLineProps {
+interface ExpensesProps {
   data: Transaction[];
   config: Configuration;
 }
 
-const LEFTOVER: Category = {
-  color: "#00a814",
-  name: "Remaining income",
+const BALANCE: Category = {
+  color: "#3271a8",
+  name: "Current balance",
+  type: TYPE_SAVINGS,
   rule: {},
 };
 
-export default function StackedLineChart(props: StackedLineProps) {
-  const start = getStartDate(props.data);
-  const end = getEndtDate(props.data);
-  const months = [start];
-  const endMonth = end.getFullYear() * 12 + end.getMonth();
-  let date = start;
-  while (date.getFullYear() * 12 + date.getMonth() < endMonth) {
-    date = addMonths(date, 1);
-    months.push(date);
-  }
+export default function NetPrgoress(props: ExpensesProps) {
+  fixDates(props.data);
+  const months = getMonths(props.data);
   const categories = new Map<Category, number[]>(
-    [...props.config.categories, DEFAULT_CATEGORY, LEFTOVER].filter((it) =>
-      it.type !== TYPE_INVEST && it.type !== TYPE_SAVINGS
+    [...props.config.categories, BALANCE].filter((it) =>
+      it.type === TYPE_INVEST || it.type === TYPE_SAVINGS
     ).map((category) => [category, []]),
   );
-  months.forEach((month) => {
+  months.forEach((month, index) => {
     const transactions = filter(props.data, inMonth(month));
-    const totalIncome = totalAmount(filter(transactions, INCOME));
-    let expenses = 0;
     Array.from(categories.keys()).forEach((category) => {
-      if (category === LEFTOVER) {
-        categories.get(category)!.push(Math.max(0, totalIncome - expenses));
+      let prev = 0;
+      if (index > 0) {
+        prev += categories.get(category)![index - 1];
+      }
+      if (category === BALANCE) {
+        let balance = totalAmount(transactions);
+        if (index == 0) {
+          balance += props.config.initialBalance;
+        }
+        categories.get(category)!.push(balance + prev);
       } else {
         const amount =
-          totalAmount(filter(transactions, hasCategory(category), COST)) * -1;
-        if (category === DEFAULT_CATEGORY) {
-          console.log("default amount ", amount);
-        }
-        expenses += amount;
-        categories.get(category)!.push(amount);
+          totalAmount(filter(transactions, hasCategory(category))) * -1;
+        categories.get(category)!.push(amount + prev);
       }
     });
   });
@@ -108,8 +103,10 @@ export default function StackedLineChart(props: StackedLineProps) {
       }}
       data={{
         labels: months.map((it) => format(it, "MM.yy", {})),
-        datasets: Array.from(categories.keys()).map((category) => ({
-          label: category.name,
+        datasets: Array.from(categories.keys()).reverse().map((category) => ({
+          label: category == BALANCE
+            ? category.name
+            : `${category.name} (Acc.)`,
           data: categories.get(category)!.map((it) => Math.abs(it)),
           fill: true,
           pointStyle: false,
