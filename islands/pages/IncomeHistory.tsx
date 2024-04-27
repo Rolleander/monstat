@@ -48,7 +48,7 @@ export default function IncomeHistory(props: ExpensesProps) {
     .forEach((remove) => categories.delete(remove[0]));
   return (
     <Chart
-      type="line"
+      type="bar"
       options={{
         scales: {
           y: {
@@ -83,6 +83,9 @@ export default function IncomeHistory(props: ExpensesProps) {
       data={{
         labels: months.map((it) => format(it, "MM.yy", {})),
         datasets: Array.from(categories.keys()).map((category) => ({
+          barPercentage: 0.9,
+          categoryPercentage: 0.9,
+          stack: "1",
           label: category.name,
           data: categories.get(category)!.map((it) => Math.abs(it)),
           fill: true,

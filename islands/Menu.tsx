@@ -6,6 +6,7 @@ import Yearly from "./pages/Yearly.tsx";
 import CostsHistory from "./pages/CostsHistory.tsx";
 import IncomeHistory from "./pages/IncomeHistory.tsx";
 import NetProgress from "./pages/NetProgress.tsx";
+import Interest from "./pages/Interest.tsx";
 import { ChartJs } from "$fresh_charts/deps.ts";
 import { IS_BROWSER } from "$fresh/runtime.ts";
 
@@ -20,7 +21,7 @@ const MENU = [
   "Costs history",
   "Income history",
   "Savings progress",
-  "TODO",
+  "Investing interest",
   "TODO",
   "TODO",
   "TODO",
@@ -73,6 +74,9 @@ export default function (props: MenuProps) {
         )}
         {page.value === 4 && (
           <NetProgress config={props.config} data={props.data} />
+        )}
+        {page.value === 5 && (
+          <Interest config={props.config} data={props.data} />
         )}
       </div>
     </div>

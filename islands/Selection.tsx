@@ -8,8 +8,8 @@ interface SelectionProps {
   selected: Signal<Category | undefined>;
   options: {
     category: Category;
-    count: number;
-    total: number;
+    count?: number;
+    total?: number;
   }[];
 }
 
@@ -36,22 +36,25 @@ export default function Selection(props: SelectionProps) {
                 <RiMoneyDollarCircleFill color={it.category.color} />}
               {it.category.name}
             </div>
-            <div class="text-nowrap flex items-center justify-center gap-1">
-              <span
-                class={` ${
-                  (it.category.type === TYPE_SAVINGS ||
-                      it.category.type === TYPE_INVEST)
-                    ? "text-gray-600"
-                    : (
-                      it.total >= 0 ? "text-green-600" : "text-red-800"
-                    )
-                } font-bold`}
-              >
-                {toEuro(it.total)}
-              </span>
-              {it.count >1 &&
-                <span class="text-sm  text-gray-600">({it.count})</span>}
-            </div>
+            {it.total &&
+              (
+                <div class="text-nowrap flex items-center justify-center gap-1">
+                  <span
+                    class={` ${
+                      (it.category.type === TYPE_SAVINGS ||
+                          it.category.type === TYPE_INVEST)
+                        ? "text-gray-600"
+                        : (
+                          it.total >= 0 ? "text-green-600" : "text-red-800"
+                        )
+                    } font-bold`}
+                  >
+                    {toEuro(it.total)}
+                  </span>
+                  {it.count && it.count > 1 &&
+                    <span class="text-sm  text-gray-600">({it.count})</span>}
+                </div>
+              )}
           </div>
         </button>
       ))}

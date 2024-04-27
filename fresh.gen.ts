@@ -13,6 +13,7 @@ import * as $Pagination from "./islands/Pagination.tsx";
 import * as $Selection from "./islands/Selection.tsx";
 import * as $pages_CostsHistory from "./islands/pages/CostsHistory.tsx";
 import * as $pages_IncomeHistory from "./islands/pages/IncomeHistory.tsx";
+import * as $pages_Interest from "./islands/pages/Interest.tsx";
 import * as $pages_Monthly from "./islands/pages/Monthly.tsx";
 import * as $pages_NetProgress from "./islands/pages/NetProgress.tsx";
 import * as $pages_Yearly from "./islands/pages/Yearly.tsx";
@@ -33,6 +34,7 @@ const manifest = {
     "./islands/Selection.tsx": $Selection,
     "./islands/pages/CostsHistory.tsx": $pages_CostsHistory,
     "./islands/pages/IncomeHistory.tsx": $pages_IncomeHistory,
+    "./islands/pages/Interest.tsx": $pages_Interest,
     "./islands/pages/Monthly.tsx": $pages_Monthly,
     "./islands/pages/NetProgress.tsx": $pages_NetProgress,
     "./islands/pages/Yearly.tsx": $pages_Yearly,
