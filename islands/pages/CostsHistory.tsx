@@ -60,54 +60,54 @@ export default function CostsHistory(props: ExpensesProps) {
   Array.from(categories.entries()).filter((it) => !it[1].some((t) => t > 0))
     .forEach((remove) => categories.delete(remove[0]));
   return (
-    <Chart
-      type="bar"
-      options={{
-        scales: {
-          y: {
-            stacked: true,
-            beginAtZero: true,
-            ticks: {
-              callback: (value, indx, values) => toEuro(value as number),
+      <Chart
+        type="bar"
+        options={{
+          scales: {
+            y: {
+              stacked: true,
+              beginAtZero: true,
+              ticks: {
+                callback: (value, indx, values) => toEuro(value as number),
+              },
             },
           },
-        },
-        plugins: {
-          legend: {
-            display: true,
-          },
-          zoom: {
-            pan: {
-              enabled: true,
-              mode: "x",
+          plugins: {
+            legend: {
+              display: true,
             },
             zoom: {
-              wheel: {
+              pan: {
                 enabled: true,
+                mode: "x",
               },
-              pinch: {
-                enabled: true,
+              zoom: {
+                wheel: {
+                  enabled: true,
+                },
+                pinch: {
+                  enabled: true,
+                },
+                mode: "x",
               },
-              mode: "x",
             },
           },
-        },
-      }}
-      data={{
-        labels: months.map((it) => format(it, "MM.yy", {})),
-        datasets: Array.from(categories.keys()).map((category) => ({
-          barPercentage: 0.9,
-          categoryPercentage: 0.9,
-          stack: "1",
-          label: category.name,
-          data: categories.get(category)!.map((it) => Math.abs(it)),
-          fill: true,
-          pointStyle: false,
-          backgroundColor: categories.get(category)!.map((it) =>
-            category.color
-          ),
-        })),
-      }}
-    />
+        }}
+        data={{
+          labels: months.map((it) => format(it, "MM.yy", {})),
+          datasets: Array.from(categories.keys()).map((category) => ({
+            barPercentage: 0.9,
+            categoryPercentage: 0.9,
+            stack: "1",
+            label: category.name,
+            data: categories.get(category)!.map((it) => Math.abs(it)),
+            fill: true,
+            pointStyle: false,
+            backgroundColor: categories.get(category)!.map((it) =>
+              category.color
+            ),
+          })),
+        }}
+      />
   );
 }

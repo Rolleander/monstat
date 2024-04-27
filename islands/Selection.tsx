@@ -20,8 +20,8 @@ export default function Selection(props: SelectionProps) {
         <button
           class={` ${
             props.selected.value == it.category
-              ? "bg-gray-300  border-2 border-blue-500"
-              : "bg-gray-200 border border-gray-300"
+              ? "bg-blue-200  border-2 border-blue-500"
+              : "bg-gray-300/80 border border-gray-400"
           } 
           hover:bg-gray-100 hover:scale-105  text-md py-[0.2rem] px-2 rounded-md`}
           onClick={() => props.selected.value = it.category}

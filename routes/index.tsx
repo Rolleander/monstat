@@ -38,13 +38,14 @@ export default async function Home() {
   const initialBalance = config.initialBalance ?? 0;
   return (
     <div class="max-w-screen-xl mx-auto flex flex-col gap-6 mt-4 items-end justify-center mb-6">
-      <div class="w-5/6 flex flex-row gap-2 items-center  text-md border-b-2 border-blue-300 py-2 drop-shadow-md">
-        <div class="text-3xl flex-grow text-gray-500 tracking-widest">
+      <div class="w-5/6 flex flex-row gap-2 items-center  text-md  py-2 drop-shadow-md">
+        <div class="text-3xl text-gray-500 tracking-widest bg-stone-400/40 p-1 pb-2 rounded-xl">
           <span class="font-bold text-stone-900">MON</span>
           ey
           <span class="font-bold text-stone-900">$TAT</span>
           s
         </div>
+        <div class="flex-grow"/>
         <div class="bg-blue-300/50 p-2 rounded-md flex flex-col justify-center items-center">
           <div class="flex items-center gap-1 text-sm">
             <RiScalesFill /> Current balance

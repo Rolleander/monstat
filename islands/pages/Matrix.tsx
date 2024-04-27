@@ -58,7 +58,7 @@ export default function Matrix(props: Props) {
     });
   });
   return (
-    <div class="overflow-auto max-h-[80vh] rounded-md border-2 border-gray-300 ">
+	<div class="overflow-auto max-h-[75vh]">
       <table class="table-auto text-xs ">
         <thead class="sticky top-0 z-10">
           <tr class="bg-slate-300 border-b-2 border-gray-500 font-bold">
@@ -101,6 +101,6 @@ export default function Matrix(props: Props) {
           ))}
         </tbody>
       </table>
-    </div>
+	  </div>
   );
 }

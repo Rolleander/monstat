@@ -46,20 +46,20 @@ export default function (props: MenuProps) {
   }
   const page = useSignal(0);
   return (
-    <div class="flex gap-4 w-full items-start">
-      <div class="flex flex-col gap-2 bg-stone-300/50 p-2 rounded-md">
+    <div class="flex gap-4 w-full items-start ">
+      <div class="flex flex-col gap-2 bg-neutral-400/20 p-2 rounded-md flex-shrink">
         {MENU.map((it, index) => (
           <button
             class={`text-lg ${
-              page.value == index ? "bg-blue-500" : "bg-gray-400"
-            } hover:bg-blue-700 hover:scale-105 text-white font-bold py-1 px-2 rounded  w-48 `}
+              page.value == index ? "bg-blue-500 text-white" : "bg-gray-300 text-gray-700"
+            } hover:bg-blue-700 hover:scale-105 border-2 border-gray-500 hover:text-white  font-bold py-1 px-2 rounded drop-shadow-md  w-48 `}
             onClick={() => page.value = index}
           >
             {it}
           </button>
         ))}
       </div>
-      <div class="flex-grow p-2 ">
+      <div class=" bg-neutral-100/75 border-2 flex-grow border-gray-300 drop-shadow-md rounded-md p-2 min-w-0">        
         {page.value === 0 && (
           <Monthly
             config={props.config}

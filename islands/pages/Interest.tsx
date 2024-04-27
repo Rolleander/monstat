@@ -83,7 +83,7 @@ export default function Interest(props: Props) {
     }
   }
   return (
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-2 ">
       <Selection
         options={categories.map((it) => ({ category: it }))}
         selected={category}
@@ -91,7 +91,7 @@ export default function Interest(props: Props) {
 
       {category.value &&
         (
-          <div class="p-2 bg-slate-200 rounded-md text-sm flex flex-col items-center gap-2">
+          <div class="text-sm flex flex-col items-center gap-2">
             <div class="text-green-700">
               <span class="font-bold mr-1">{toEuro(lastYearGrowth)}</span>{" "}
               was invested in the last 12 months
@@ -125,7 +125,7 @@ function GrowthSelection(
     <div class="flex gap-2">
       {props.options.map((it, index) => (
         <div class="flex flex-col items-center">
-          <div class="text-blue-400">
+          <div class="text-blue-500">
             {round(GROWTH_TYPES[index] * 100,0)} %
           </div>
           <button
