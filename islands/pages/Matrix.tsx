@@ -64,7 +64,7 @@ export default function Matrix(props: Props) {
           <tr class="bg-slate-300 border-b-2 border-gray-500 font-bold">
             <td></td>
             {categories.map((category) => (
-              <td class="py-1 px-1">{category.name}</td>
+              <td class="py-1 px-1 text-center">{category.name}</td>
             ))}
           </tr>
         </thead>

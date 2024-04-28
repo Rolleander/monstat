@@ -42,8 +42,11 @@ const INTERESTS = [
   0.05,
   0.055,
   0.06,
+  0.07,
+  0.08,
+  0.09,
+  0.1
 ];
-const YEARS = 30;
 const GROWTH_TYPES = [
   0,
   0.1,
@@ -58,6 +61,7 @@ const GROWTH_TYPES = [
 ];
 
 export default function Interest(props: Props) {
+  const YEARS = props.config.investingPredictionYears ?? 30;
   fixDates(props.data);
   const start = getStartDate(props.data);
   const end = getEndtDate(props.data);
@@ -96,7 +100,7 @@ export default function Interest(props: Props) {
               <span class="font-bold mr-1">{toEuro(lastYearGrowth)}</span>{" "}
               was invested in the last 12 months
             </div>
-            <div class="flex flex-col items-center rounded-md border-2 border-blue-300 p-2 gap-2">
+            <div class="flex flex-col items-center rounded-md border-2 border-blue-300 bg-blue-100 p-2 gap-2">
               <span class="text-gray-800">
                 Predicting growth over {YEARS} years with interest, assuming yearly continous investments of:
               </span>

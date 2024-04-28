@@ -1,5 +1,6 @@
 export interface Configuration{
 	initialBalance: number,
+	investingPredictionYears?: number,
 	formats : CsvFormat[],
 	categories: Category[]
 }

@@ -24,10 +24,6 @@ const MENU = [
   "Savings progress",
   "Investing interest",
   "Matrix",
-  "TODO",
-  "TODO",
-  "TODO",
-  "TODO",
 ];
 
 export default function (props: MenuProps) {

@@ -57,8 +57,8 @@ export default function (props: PeriodProps) {
   const leftOver = totalIncome - totalExpenses - totalSavings;
   return (
     <>
-      <div class="flex flex-col gap-2 items-center ">
-        <div class="flex  gap-2 p-2 w-4/5 bg-blue-100 rounded-xl ">
+      <div class="flex flex-col gap-2 items-center " >
+        <div class="flex  gap-2 p-2 w-4/5 bg-blue-100/50 border-2 border-blue-400 rounded-xl ">
           <div class="flex flex-col gap-2 items-center flex-grow ">
             <div class="text-lg font-bold">Expenses</div>
             <div class="flex-grow w-full ">
@@ -163,7 +163,7 @@ export default function (props: PeriodProps) {
                     <td
                       class={`${
                         it.amount >= 0 ? "text-green-600" : "text-red-800"
-                      }  w-[15%] px-2 text-right text-nowrap font-bold`}
+                      }  w-[12%] px-2 text-right text-nowrap font-bold`}
                     >
                       {toEuro(it.amount)}
                     </td>
@@ -182,7 +182,7 @@ export default function (props: PeriodProps) {
                         {it.target}
                       </p>
                     </td>
-                    <td class="w-[30%] px-2 text-sm">
+                    <td class="w-[32%] px-2 text-sm">
                       <p
                         class=" overflow-hidden"
                         style={{

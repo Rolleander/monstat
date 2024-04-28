@@ -32,7 +32,7 @@ export function getMonths(data: Transaction[]) {
   let date: Date;
   const endMonth = end.getFullYear() * 12 + end.getMonth();
   do {
-    date = new Date(y, m+1, 1);
+    date = new Date(y, m + 1, 1);
     months.push(date);
     monthsDisplay.push(toMonth(date));
     m += 1;
@@ -61,7 +61,9 @@ export function getYears(data: Transaction[]) {
 export function Pagination(props: PaginationProps) {
   const current = props.selected.value;
   const showOptions = new Map<string, number>();
-  const centerIndex = Math.floor(Math.min(MAX_OPTIONS, props.options.length) / 2);
+  const centerIndex = Math.floor(
+    Math.min(MAX_OPTIONS, props.options.length) / 2,
+  );
   let shift = 0;
   if (current < centerIndex) {
     shift = centerIndex - current;
@@ -83,57 +85,76 @@ export function Pagination(props: PaginationProps) {
   const paginatingLeft = current > 0;
   const paginatingRight = current < props.options.length - 1;
   return (
-    <div class="inline-flex">
-      <button
-        disabled={!paginatingLeft}
-        class={` ${
-          paginatingLeft ? "bg-gray-300 hover:bg-gray-400 hover:scale-105" : "invisible"
-        }   text-gray-800 font-bold py-1 px-2 rounded-l border-r border-gray-400`}
-        onClick={() => props.selected.value = 0}
-      >
-        <RiSkipBackFill />
-      </button>
+    <div
+      class=" flex "
+      onKeyDown={(evt) => {
+        if (evt.key == "ArrowLeft" && paginatingLeft) {
+          props.selected.value -= 1;
+        } else if (evt.key == "ArrowRight" && paginatingRight) {
+          props.selected.value += 1;
+        }
+      }}
+    >
+      <div class="flex flex-shrink rounded-md border-2 border-gray-400">
+        <button
+          disabled={!paginatingLeft}
+          class={` ${
+            paginatingLeft
+              ? "bg-gray-300 hover:bg-gray-400 hover:scale-105"
+              : "opacity-70"
+          }   text-gray-800 font-bold py-1 px-2 rounded-l border-r border-gray-400`}
+          onClick={() => props.selected.value = 0}
+        >
+          <RiSkipBackFill />
+        </button>
 
-      <button
-        disabled={!paginatingLeft}
-        class={` ${
-          paginatingLeft ? "bg-gray-300 hover:bg-gray-400 hover:scale-105" : "invisible"
-        }   text-gray-800 font-bold py-1 px-2 border-r border-gray-400`}
-        onClick={() => props.selected.value -= 1}
-      >
-        <RiArrowLeftFill />
-      </button>
+        <button
+          disabled={!paginatingLeft}
+          class={` ${
+            paginatingLeft
+              ? "bg-gray-300 hover:bg-gray-400 hover:scale-105"
+              : "opacity-70"
+          }   text-gray-800 font-bold py-1 px-2 border-r border-gray-400`}
+          onClick={() => props.selected.value -= 1}
+        >
+          <RiArrowLeftFill />
+        </button>
 
-      {Array.from(showOptions.entries()).map((entry, index) => (
+        {Array.from(showOptions.entries()).map((entry, index) => (
+          <button
+            class={` ${
+              selectedOptionIndex == index ? "bg-blue-400" : "bg-gray-300"
+            } 
+          hover:bg-gray-400 hover:scale-105 text-gray-800 font-bold py-1 px-3 border-r border-gray-400`}
+            onClick={() => props.selected.value = entry[1]}
+          >
+            {entry[0]}
+          </button>
+        ))}
+
         <button
           class={` ${
-            selectedOptionIndex == index ? "bg-blue-400" : "bg-gray-300"
-          } 
-          hover:bg-gray-400 hover:scale-105 text-gray-800 font-bold py-1 px-3 border-r border-gray-400`}
-          onClick={() => props.selected.value = entry[1]}
+            paginatingRight
+              ? "bg-gray-300 hover:bg-gray-400 hover:scale-105"
+              : "opacity-70"
+          }   text-gray-800 font-bold py-1 px-2 border-r border-gray-400`}
+          disabled={!paginatingRight}
+          onClick={() => props.selected.value += 1}
         >
-          {entry[0]}
+          <RiArrowRightFill />
         </button>
-      ))}
-
-      <button
-        class={` ${
-          paginatingRight ? "bg-gray-300 hover:bg-gray-400 hover:scale-105" : "invisible"
-        }   text-gray-800 font-bold py-1 px-2 border-r border-gray-400`}
-        disabled={!paginatingRight}
-        onClick={() => props.selected.value += 1}
-      >
-        <RiArrowRightFill />
-      </button>
-      <button
-        class={` ${
-          paginatingRight ? "bg-gray-300 hover:bg-gray-400 hover:scale-105" : "invisible"
-        }   text-gray-800 font-bold py-1 px-2 rounded-r`}
-        disabled={!paginatingRight}
-        onClick={() => props.selected.value = props.options.length - 1}
-      >
-        <RiSkipForwardFill />
-      </button>
+        <button
+          class={` ${
+            paginatingRight
+              ? "bg-gray-300 hover:bg-gray-400 hover:scale-105"
+              : "opacity-70"
+          }   text-gray-800 font-bold py-1 px-2 rounded-r`}
+          disabled={!paginatingRight}
+          onClick={() => props.selected.value = props.options.length - 1}
+        >
+          <RiSkipForwardFill />
+        </button>
+      </div>
     </div>
   );
 }
