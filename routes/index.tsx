@@ -17,7 +17,7 @@ import {
   RiCoinsFill,
   RiHandCoinLine,
   RiScalesFill,
-} from "react-icons/ri";
+} from "@preact-icons/ri";
 
 export default async function Home() {
   const config = await readConfiguration();

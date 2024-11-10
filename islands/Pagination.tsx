@@ -8,7 +8,7 @@ import {
   RiArrowRightFill,
   RiSkipBackFill,
   RiSkipForwardFill,
-} from "react-icons/ri";
+} from "@preact-icons/ri";
 
 const MAX_OPTIONS = 9;
 const MONTH_FORMAT = "MM.yyyy";

@@ -1,6 +1,6 @@
 import { Signal } from "@preact/signals";
 import { toEuro } from "../data/utils.ts";
-import { RiBankFill, RiMoneyDollarCircleFill } from "react-icons/ri";
+import { RiBankFill, RiMoneyDollarCircleFill } from "@preact-icons/ri";
 import { Category } from "../data/settings.ts";
 import { TYPE_EXPENSES, TYPE_INVEST, TYPE_SAVINGS } from "../data/settings.ts";
 

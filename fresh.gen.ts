@@ -18,7 +18,7 @@ import * as $pages_Matrix from "./islands/pages/Matrix.tsx";
 import * as $pages_Monthly from "./islands/pages/Monthly.tsx";
 import * as $pages_NetProgress from "./islands/pages/NetProgress.tsx";
 import * as $pages_Yearly from "./islands/pages/Yearly.tsx";
-import { type Manifest } from "$fresh/server.ts";
+import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
   routes: {

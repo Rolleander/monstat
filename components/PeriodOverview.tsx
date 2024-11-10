@@ -5,7 +5,7 @@ import {
   RiHandCoinLine,
   RiScalesFill,
   RiSubtractFill,
-} from "react-icons/ri";
+} from "@preact-icons/ri";
 import {
   groupByCategories,
   sortByAmount,
